@@ -1,0 +1,80 @@
+Gravity
+	- Larger gravity downpull in the Y to stop the ball taking air as easily, 
+
+Materials
+	- Material to represent the coefficient of restitution of steel ball bearing for ball.
+	- Material to represent point scoring obstacles and to give bounce, bumper material with a larger coefficient of restiution than 1.
+
+Floor
+	- Large box object to be coloured differently from walls
+
+Walls 
+	- All game walls are in a separate class, 
+	- neatens the code, 
+	- allows for compound object movement,
+
+Ball
+	- Sphere class, 
+	- Collision filtering with the collision groups of other obstacles in the level.
+	
+	- Starts kinematic before launcher is pressed.
+
+Flippers
+	- Convex mesh shapes
+	- Collision filtering with ball collision group to enable CCD
+
+Revolute Joints
+	- Joins the two actors specified (if two) in the specified points in space. 
+	- This connects the wedge to the point in space on the table where the wedge has placed,
+	- The joint is also rotated and translated in such a way that the wedge rotates around the correct angle
+	- and not around the centre of the flipper.
+
+Baton
+	- Spinning box with collision filtering and revolute joint to hold in place on the table.
+	- Scoring points through collision.
+
+Glass & Glass Walls
+	- Box and Wall classes used to create a see through roof on the table to stop the ball from taking air
+	- Set kinematic so that it doesn't move
+	- Set the shapes flag visualization to false, 
+	- then implemented a check for each shapes flag in the renderer to see whether the bit(&) containing the visualisation flag is true or false 
+
+Deadzone
+	- Box created to be a trigger for beneath the flippers, set to kinematic and a trigger, also set visualisation to false.
+	- When triggered the player will lose a life, and the game will reset, and carry score over rounds, 
+	- If the player loses all lives then the game will restart.
+
+SpawnBlock
+	- Trigger that will trigger when the ball leaves it, will block off spawn to avoid the ball going back down to the launcher when in play.
+	- Also a check on the launcher to see if the ball is in spawn, if it is then the spawnblock will despawn in case of a botched launch.
+
+Tube Trigger
+	- Trigger in the tube for the changing direction of the baton in the middle. 
+	- Also trigger to give points.
+
+Plunger 
+	- Trampoline for launcher and on the right
+	- Right plunger uses triggers to launch ball on contact and block off after it has been fired.
+	- Launcher uses space to launch
+	- Stiffness and Dampness altered on button press and release to fire ball.
+
+Platform and Under Trigger
+	- Elevated boxes with ramp to lead ball up.
+	- Varying level geometry experimenting with rotations and compound shapes.
+
+Obstacles and capsules
+	- Collision filters set up for the capsules to score points on
+	- Given the bumper materials for bouncier effect like regular pinball.
+
+Trigger checks
+	- Triggers are checked with bools, constantly checked in the custom update 1/60seconds.
+	- *see custom update*
+
+Collision 
+	- OnContact check added new flags to check for CCD on filter groups such as bumpers or flippers,
+	- Function to check object name to determine score, similar action in triggers.
+
+Key Functionality
+	- Z & / = Left/Right Flippers
+	- x & . = Left/Right tilt and nudge counters, and tilt, different HUD used.
+	- Lives and score updated live on HUD, High score tracked by game session, could have done text files.
